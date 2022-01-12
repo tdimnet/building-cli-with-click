@@ -14,5 +14,5 @@ services:
       MARIADB_ROOT_PASSWORD: example
       MARIADB_USER: dev
       MARIADB_PASSWORD: example
-      MARIADB_DATABASE: my_database
+      MARIADB_DATABASE: inventory_db
 
