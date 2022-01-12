@@ -4,6 +4,15 @@ services:
     build: .
     stdin_open: true
     tty: true
+    depends_on:
+      - db
     volumes:
       - ./:/app
+  db:
+    image: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: example
+      MARIADB_USER: dev
+      MARIADB_PASSWORD: example
+      MARIADB_DATABASE: my_database
 
