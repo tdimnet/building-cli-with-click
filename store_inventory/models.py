@@ -21,5 +21,5 @@ class Product(Base):
     
 
     def __repr__(self) -> str:
-        return f"({self.id}) - First Name: {self.first_name}, Last Name: {self.last_name}"
+        return f"({self.id}) - Product name: {self.name}"
 

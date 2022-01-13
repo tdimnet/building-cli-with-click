@@ -22,9 +22,11 @@ def populate():
 
 
 @click.command()
-def drop():
-    click.echo("Drop the Database")
-    Base.metadata.drop_all(engine)
+@click.option("--force", is_flag=True)
+def drop(force):
+    if force:
+        click.echo("Drop the database")
+        Base.metadata.drop_all(engine)
 
 
 database.add_command(create)
