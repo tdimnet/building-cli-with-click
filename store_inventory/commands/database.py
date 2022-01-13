@@ -1,7 +1,7 @@
 import click
 
 from store_inventory.models import Base, engine
-from store_inventory.csv import add_csv
+from store_inventory.csv import add_csv_to_database
 
 
 @click.group()
@@ -18,7 +18,7 @@ def create():
 @click.command()
 def populate():
     click.echo("Get data from the CSV and populate the Database")
-    add_csv()
+    add_csv_to_database()
 
 
 @click.command()

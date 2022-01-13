@@ -10,17 +10,16 @@ session = Session()
 Base = declarative_base()
 
 
-class Products(Base):
-    __tablename__ = "products"
+class Product(Base):
+    __tablename__ = "product"
 
     id = Column(Integer, primary_key=True)
     name = Column("name", String(255))
     price = Column("price", Integer)
     quantity = Column("quantity", Integer)
-    date = Column("created_at", Date)
+    created_at = Column("created_at", Date)
     
 
     def __repr__(self) -> str:
         return f"({self.id}) - First Name: {self.first_name}, Last Name: {self.last_name}"
-
 
