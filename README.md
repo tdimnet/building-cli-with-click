@@ -1,5 +1,7 @@
 # building-cli-with-click
 
+## Run tests
+python -m pytest
 
 ## Resources:
 

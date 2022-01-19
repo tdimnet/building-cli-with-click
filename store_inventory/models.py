@@ -18,7 +18,6 @@ class Product(Base):
     price = Column("price", Integer)
     quantity = Column("quantity", Integer)
     created_at = Column("created_at", Date)
-    
 
     def __repr__(self) -> str:
         return f"({self.id}) - Product name: {self.name}"
