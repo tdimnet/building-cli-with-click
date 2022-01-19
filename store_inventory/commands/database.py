@@ -4,24 +4,24 @@ from store_inventory.models import Base, engine
 from store_inventory.csv import add_csv_to_database
 
 
-@click.group()
+@click.group(help="Generate data and also create and detele the database")
 def database():
     pass
 
 
-@click.command()
+@click.command(help="Create a databae and tables")
 def create():
-    click.echo("Create the Database")
+    click.echo("Creating the database and the tables")
     Base.metadata.create_all(engine)
 
 
-@click.command()
+@click.command(help="Read the CSV file and populate data into the Database")
 def populate():
     click.echo("Get data from the CSV and populate the Database")
     add_csv_to_database()
 
 
-@click.command()
+@click.command(help="Drop the database including all the database inside")
 @click.option("--force", is_flag=True)
 def drop(force):
     if force:

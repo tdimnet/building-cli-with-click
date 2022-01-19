@@ -4,12 +4,12 @@ import click
 from store_inventory.models import session, Product
 
 
-@click.group()
+@click.group(help="Get, update or delete a product")
 def product():
     pass
 
 
-@click.command()
+@click.command(help="Retrieve and print a product")
 @click.option("--id", required=True, type=int)
 def get(id):
     click.echo(f"Retrieve the product with the ID {id}")
