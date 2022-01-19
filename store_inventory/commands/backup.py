@@ -1,7 +1,7 @@
 import click
 
 
-@click.group()
+@click.group(help="Generate and delete database backups")
 def backup():
     pass
 

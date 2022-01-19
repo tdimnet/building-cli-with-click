@@ -2,12 +2,14 @@ import click
 import os
 
 
-@click.command()
-@click.option('--dev/--prod', default=False)
-def serve(dev):
-    if dev == True:
-        click.echo("Launch dev server")
+@click.command(help="Launch on web server")
+@click.option("--kind", type=click.Choice(["dev", "prod"]), required=True,
+        help="Launch a dev or prod server")
+def serve(kind):
+    if kind == "dev":
         os.system("flask run --host=0.0.0.0")
     else:
-        click.echo("Lauching prod server")
+        print('=====')
+        print(kind)
+        print('=====')
 
