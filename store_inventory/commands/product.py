@@ -1,4 +1,5 @@
 import click
+from datetime import datetime
 
 
 from store_inventory.models import session, Product
@@ -22,5 +23,12 @@ def get(id):
         click.echo(product)
 
 
+@click.command()
+def update():
+    my_file = open("/app/notes.txt", "a")
+    my_file.write(f"\nAccessed on {str(datetime.now())}")
+
+
 product.add_command(get)
+product.add_command(update)
 
