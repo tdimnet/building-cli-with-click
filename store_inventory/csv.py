@@ -5,6 +5,9 @@ from store_inventory.utils.date import clean_date
 from store_inventory.utils.price import clean_price
 
 
+PRODUCT_INITIAL_STATE = 1
+
+
 def add_products_csv_to_database():
     with open('/app/store_inventory/inventory/products.csv') as csv_file:
         products_data = list(csv.DictReader(csv_file))
@@ -15,7 +18,7 @@ def add_products_csv_to_database():
             quantity = int(product["product_quantity"])
             created_at = clean_date(product["date_updated"])
             updated_at = clean_date(product["date_updated"])
-            product_state_id = 1
+            product_state_id = PRODUCT_INITIAL_STATE
 
             new_product = Product(
                 name=name,

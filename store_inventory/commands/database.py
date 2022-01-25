@@ -22,8 +22,12 @@ def create():
 @click.command(help="Read the CSV file and populate data into the Database")
 def populate():
     click.echo("Get data from the CSV and populate the Database")
+
+    click.echo("Adding product states")
     add_product_states_csv_to_db()
-    #add_products_csv_to_database()
+
+    click.echo("Adding products")
+    add_products_csv_to_database()
 
 
 @click.command(help="Clean duplicate rows within a table")
