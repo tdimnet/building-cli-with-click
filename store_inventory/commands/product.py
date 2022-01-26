@@ -25,8 +25,9 @@ def get(id):
 
 @click.command()
 def update():
+    click.echo("Let's update a product")
     my_file = open("/app/notes.txt", "a")
-    my_file.write(f"\nAccessed on {str(datetime.now())}")
+    my_file.write(f"\nAccessed on {str(datetime.now())}\n")
 
 
 product.add_command(get)
