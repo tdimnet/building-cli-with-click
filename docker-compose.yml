@@ -5,7 +5,7 @@ services:
     stdin_open: true
     tty: true
     environment:
-      FLASK_APP: store_inventory/api.py
+      FLASK_APP: api.py
     ports:
       - "5000:5000"
     depends_on:
