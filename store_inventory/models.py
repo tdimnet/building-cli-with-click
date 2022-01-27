@@ -43,3 +43,19 @@ class ProductState(Base):
     def __repr__(self):
         return f"({self.id} - State Name: {self.name})"
 
+
+class ProductQuantity(Base):
+    __tablename__ = "product_quantity"
+
+    id = Column(Integer, primary_key=True)
+    quantity = Column("quantity", Integer)
+
+
+class Order(Base):
+    __tablename__ = "order"
+
+    id = Column(Integer, primary_key=True)
+    products = Column("products", String(255))
+    created_at = Column("created_at", Date)
+    updated_at = Column("updated_at", Date)
+
