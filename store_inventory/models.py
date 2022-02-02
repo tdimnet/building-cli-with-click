@@ -4,7 +4,8 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     String,
-    create_engine
+    create_engine,
+    Table
 )
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
@@ -15,6 +16,14 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 Base = declarative_base()
+
+
+association_table = Table("products_order", Base.metadata,
+    Column("id", Integer),
+    Column("quantity", Integer),
+    Column("order_id", ForeignKey("orders.id")),
+    Column("product_id", ForeignKey("products.id"))
+)
 
 
 class Product(Base):
@@ -60,7 +69,8 @@ class Order(Base):
     __tablename__ = "orders"
 
     id = Column(Integer, primary_key=True)
-    products = Column("products", String(255))
     created_at = Column("created_at", Date)
     updated_at = Column("updated_at", Date)
+
+    products = relationship("Product", secondary=association_table)
 
