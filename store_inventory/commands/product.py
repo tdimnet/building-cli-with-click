@@ -30,6 +30,21 @@ def update():
     my_file.write(f"\nAccessed on {str(datetime.now())}\n")
 
 
+@click.command()
+def update_product():
+    click.echo("Let's update a product")
+
+    product = session.query(Product).filter(Product.product_state_id ==
+            2).limit(1).one_or_none()
+
+    if product == None:
+        click.echo("Not found")
+
+    product.product_state_id = 3
+    session.commit()
+
+
 product.add_command(get)
 product.add_command(update)
+product.add_command(update_product)
 

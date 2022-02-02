@@ -18,7 +18,7 @@ Base = declarative_base()
 
 
 class Product(Base):
-    __tablename__ = "product"
+    __tablename__ = "products"
 
     id = Column(Integer, primary_key=True)
     name = Column("name", String(255))
@@ -27,7 +27,7 @@ class Product(Base):
     created_at = Column("created_at", Date)
     updated_at = Column("updated_at", Date)
 
-    product_state_id = Column(Integer, ForeignKey('product_state.id'))
+    product_state_id = Column(Integer, ForeignKey('product_states.id'))
     product_state = relationship("ProductState")
 
     def __repr__(self) -> str:
@@ -35,7 +35,7 @@ class Product(Base):
 
 
 class ProductState(Base):
-    __tablename__ = "product_state"
+    __tablename__ = "product_states"
 
     id = Column(Integer, primary_key=True)
     name = Column("name", String(255))
@@ -45,14 +45,14 @@ class ProductState(Base):
 
 
 class ProductQuantity(Base):
-    __tablename__ = "product_quantity"
+    __tablename__ = "product_quantities"
 
     id = Column(Integer, primary_key=True)
     quantity = Column("quantity", Integer)
 
 
 class Order(Base):
-    __tablename__ = "order"
+    __tablename__ = "orders"
 
     id = Column(Integer, primary_key=True)
     products = Column("products", String(255))

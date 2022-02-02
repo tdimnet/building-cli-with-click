@@ -19,4 +19,8 @@ services:
       MARIADB_USER: dev
       MARIADB_PASSWORD: example
       MARIADB_DATABASE: inventory_db
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
 
