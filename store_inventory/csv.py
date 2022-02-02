@@ -1,6 +1,11 @@
 import csv
 
-from store_inventory.models import session, Product, ProductState
+from store_inventory.models import (
+    Product,
+    ProductQuantity,
+    ProductState,
+    session
+)
 from store_inventory.utils.date import clean_date
 from store_inventory.utils.price import clean_price
 
@@ -23,14 +28,21 @@ def add_products_csv_to_database():
             new_product = Product(
                 name=name,
                 price=price,
-                quantity=quantity,
                 created_at=created_at,
                 updated_at=updated_at,
                 product_state_id=product_state_id
             )
-            session.add(new_product)
 
-        session.commit()
+            session.add(new_product)
+            session.commit()
+
+            product_quantity = ProductQuantity(
+                quantity=quantity,
+                product_id=new_product.id
+            )
+
+            session.add(product_quantity)
+            session.commit()
 
 
 def add_product_states_csv_to_db():

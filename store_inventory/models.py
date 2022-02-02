@@ -30,6 +30,9 @@ class Product(Base):
     product_state_id = Column(Integer, ForeignKey('product_states.id'))
     product_state = relationship("ProductState")
 
+    quantity = relationship("ProductQuantity", backref="products",
+            lazy="dynamic")
+
     def __repr__(self) -> str:
         return f"({self.id}) - Product name: {self.name}"
 
@@ -49,6 +52,8 @@ class ProductQuantity(Base):
 
     id = Column(Integer, primary_key=True)
     quantity = Column("quantity", Integer)
+
+    product_id = Column(Integer, ForeignKey("products.id"))
 
 
 class Order(Base):
