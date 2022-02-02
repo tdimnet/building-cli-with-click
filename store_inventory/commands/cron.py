@@ -18,9 +18,9 @@ def products():
 
 
 @click.command()
-def add_shipped_products_cron():
+def update_shipped_products():
     click.echo("Adding shipped products cron")
-    shipped_cron(i)
+    shipped_cron()
 
 
 @click.command()
@@ -31,5 +31,5 @@ def list():
 
 cron.add_command(products)
 cron.add_command(list)
-cron.add_command(add_shipped_products_cron)
+cron.add_command(update_shipped_products)
 

@@ -39,9 +39,9 @@ def update_product():
 
     if product == None:
         click.echo("Not found")
-
-    product.product_state_id = 3
-    session.commit()
+    else:
+        product.product_state_id = 3
+        session.commit()
 
 
 product.add_command(get)
