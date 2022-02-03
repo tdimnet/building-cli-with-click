@@ -36,21 +36,8 @@ class Product(Base):
     created_at = Column("created_at", Date)
     updated_at = Column("updated_at", Date)
 
-    product_state_id = Column(Integer, ForeignKey('product_states.id'))
-    product_state = relationship("ProductState")
-
     def __repr__(self) -> str:
         return f"({self.id}) - Product name: {self.name}"
-
-
-class ProductState(Base):
-    __tablename__ = "product_states"
-
-    id = Column(Integer, primary_key=True)
-    name = Column("name", String(255))
-
-    def __repr__(self):
-        return f"({self.id} - State Name: {self.name})"
 
 
 class Order(Base):
@@ -61,4 +48,17 @@ class Order(Base):
     updated_at = Column("updated_at", Date)
 
     products = relationship("Product", secondary=association_table)
+
+    order_status_id = Column(Integer, ForeignKey("order_status.id"))
+    order_status = relationship("OrderStatus")
+
+
+class OrderStatus(Base):
+    __tablename__ = "order_status"
+
+    id = Column(Integer, primary_key=True)
+    name = Column("name", String(255))
+
+    def __repr__(self):
+        return f"({self.id} - State Name: {self.name})"
 

@@ -3,7 +3,7 @@ from sqlalchemy.sql import text
 
 from store_inventory.models import Base, engine
 from store_inventory.csv import (
-    add_product_states_csv_to_db,
+    add_order_status_to_db,
     add_products_csv_to_database
 )
 
@@ -23,8 +23,8 @@ def create():
 def populate():
     click.echo("Get data from the CSV and populate the Database")
 
-    click.echo("Adding product states")
-    add_product_states_csv_to_db()
+    click.echo("Adding the status of orders")
+    add_order_status_to_db()
 
     click.echo("Adding products")
     add_products_csv_to_database()
