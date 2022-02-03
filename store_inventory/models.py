@@ -18,14 +18,6 @@ session = Session()
 Base = declarative_base()
 
 
-association_table = Table("products_order", Base.metadata,
-    Column("id", Integer, primary_key=True),
-    Column("quantity", Integer),
-    Column("order_id", ForeignKey("orders.id")),
-    Column("product_id", ForeignKey("products.id"))
-)
-
-
 class Product(Base):
     __tablename__ = "products"
 
@@ -47,10 +39,19 @@ class Order(Base):
     created_at = Column("created_at", Date)
     updated_at = Column("updated_at", Date)
 
-    products = relationship("Product", secondary=association_table)
+    products = relationship("ProductsOrder") 
 
     order_status_id = Column(Integer, ForeignKey("order_status.id"))
     order_status = relationship("OrderStatus")
+
+
+class ProductsOrder(Base):
+    __tablename__ = "products_order"
+
+    id = Column("id", Integer, primary_key=True)
+    quantity = Column("quantity", Integer)
+    order_id = Column("order_id", ForeignKey("orders.id"))
+    product_id = Column("product_id", ForeignKey("products.id"))
 
 
 class OrderStatus(Base):

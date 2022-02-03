@@ -4,7 +4,8 @@ from sqlalchemy.sql import text
 from store_inventory.models import Base, engine
 from store_inventory.csv import (
     add_order_status_to_db,
-    add_products_csv_to_database
+    add_products_csv_to_database,
+    add_orders_to_db
 )
 
 
@@ -23,11 +24,14 @@ def create():
 def populate():
     click.echo("Get data from the CSV and populate the Database")
 
-    click.echo("Adding the status of orders")
-    add_order_status_to_db()
+    #click.echo("Adding the status of orders")
+    #add_order_status_to_db()
 
-    click.echo("Adding products")
-    add_products_csv_to_database()
+    #click.echo("Adding products")
+    #add_products_csv_to_database()
+
+    click.echo("Adding orders")
+    add_orders_to_db()
 
 
 @click.command(help="Clean duplicate rows within a table")

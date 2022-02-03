@@ -3,13 +3,15 @@ import csv
 from store_inventory.models import (
     Product,
     OrderStatus,
-    session
+    Order,
+    session,
+    ProductsOrder
 )
 from store_inventory.utils.date import clean_date
 from store_inventory.utils.price import clean_price
 
 
-PRODUCT_INITIAL_STATE = 1
+ORDER_CONFIRMED_STATUS = 2
 
 
 def add_products_csv_to_database():
@@ -51,3 +53,31 @@ def add_order_status_to_db():
 
         session.commit()
 
+
+def add_orders_to_db():
+    print("====")
+
+    created_at = clean_date("03/02/2021")
+    updated_at = clean_date("03/02/2021")
+
+    new_order = Order(
+        order_status_id=ORDER_CONFIRMED_STATUS,
+        created_at=created_at,
+        updated_at=updated_at
+    )
+
+    session.add(new_order)
+    session.commit()
+
+    print(new_order.products)
+    
+    new_product_order = ProductsOrder(
+        quantity=1,
+        order_id=new_order.id,
+        product_id=1
+    )
+
+    new_order.products.append(new_product_order)
+
+    session.commit()
+    
