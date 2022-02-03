@@ -19,7 +19,7 @@ Base = declarative_base()
 
 
 association_table = Table("products_order", Base.metadata,
-    Column("id", Integer),
+    Column("id", Integer, primary_key=True),
     Column("quantity", Integer),
     Column("order_id", ForeignKey("orders.id")),
     Column("product_id", ForeignKey("products.id"))
@@ -39,9 +39,6 @@ class Product(Base):
     product_state_id = Column(Integer, ForeignKey('product_states.id'))
     product_state = relationship("ProductState")
 
-    quantity = relationship("ProductQuantity", backref="products",
-            lazy="dynamic")
-
     def __repr__(self) -> str:
         return f"({self.id}) - Product name: {self.name}"
 
@@ -54,15 +51,6 @@ class ProductState(Base):
 
     def __repr__(self):
         return f"({self.id} - State Name: {self.name})"
-
-
-class ProductQuantity(Base):
-    __tablename__ = "product_quantities"
-
-    id = Column(Integer, primary_key=True)
-    quantity = Column("quantity", Integer)
-
-    product_id = Column(Integer, ForeignKey("products.id"))
 
 
 class Order(Base):
