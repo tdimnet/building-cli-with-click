@@ -19,7 +19,7 @@ DB_NAME = os.environ.get("MARIADB_DATABASE")
 DB_ADDRESS = os.environ.get("DB_ADDRESS")
 
 engine = create_engine(
-    f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_ADDRESS}/{DB_ADDRESS}", 
+    f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_ADDRESS}/{DB_NAME}", 
     echo=True)
 
 Session = sessionmaker(bind=engine)

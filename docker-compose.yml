@@ -6,7 +6,6 @@ services:
     tty: true
     environment:
       FLASK_APP: api.py
-      MARIADB_ROOT_PASSWORD: example
       MARIADB_USER: dev
       MARIADB_PASSWORD: example
       MARIADB_DATABASE: inventory_db
