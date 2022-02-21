@@ -47,7 +47,8 @@ def clean_table(name):
             if not engine.dialect.has_table(con, name):
                 raise ValueError(f"The table {name} was not found")
 
-            # Add comment
+            # Be aware: this is not a SAFE command. It is rarely a good idea to
+            # delete data in a database, especially not on a temporary table
             statement = text("DELETE t1 FROM product t1 INNER JOIN product t2 WHERE t1.id < t2.id AND t1.name = t2.name;")
             click.echo(f"{name} table cleaned")
     except Exception as err:
@@ -57,8 +58,10 @@ def clean_table(name):
 @click.command(help="Drop the database including all the database inside")
 @click.option("--force", is_flag=True)
 def drop(force):
+    click.echo("""WARNING: this will lead to dropping the database and all the
+            data within. Please use the --force option to do it.""")
     if force:
-        click.echo("Drop the database")
+        click.echo("Dropping the database and all the data inside")
         Base.metadata.drop_all(engine)
 
 

@@ -6,6 +6,11 @@ services:
     tty: true
     environment:
       FLASK_APP: api.py
+      MARIADB_ROOT_PASSWORD: example
+      MARIADB_USER: dev
+      MARIADB_PASSWORD: example
+      MARIADB_DATABASE: inventory_db
+      DB_ADDRESS: db
     ports:
       - "5000:5000"
     depends_on:
@@ -19,6 +24,7 @@ services:
       MARIADB_USER: dev
       MARIADB_PASSWORD: example
       MARIADB_DATABASE: inventory_db
+      DB_ADDRESS: db
   adminer:
     image: adminer
     ports:

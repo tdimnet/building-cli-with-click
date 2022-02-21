@@ -1,3 +1,5 @@
+import os
+
 from sqlalchemy import (
     Column,
     Date,
@@ -10,7 +12,15 @@ from sqlalchemy import (
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 
-engine = create_engine('mysql+pymysql://dev:example@db/inventory_db', echo=True)
+
+DB_USER = os.environ.get("MARIADB_USER")
+DB_PASSWORD = os.environ.get("MARIADB_PASSWORD")
+DB_NAME = os.environ.get("MARIADB_DATABASE")
+DB_ADDRESS = os.environ.get("DB_ADDRESS")
+
+engine = create_engine(
+    f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_ADDRESS}/{DB_ADDRESS}", 
+    echo=True)
 
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -36,13 +46,13 @@ class Order(Base):
     __tablename__ = "orders"
 
     id = Column(Integer, primary_key=True)
-    created_at = Column("created_at", Date)
-    updated_at = Column("updated_at", Date)
-
     products = relationship("ProductsOrder") 
 
     order_status_id = Column(Integer, ForeignKey("order_status.id"))
     order_status = relationship("OrderStatus")
+
+    created_at = Column("created_at", Date)
+    updated_at = Column("updated_at", Date)
 
 
 class ProductsOrder(Base):
@@ -59,6 +69,8 @@ class OrderStatus(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column("name", String(255))
+    created_at = Column("created_at", Date)
+    updated_at = Column("updated_at", Date)
 
     def __repr__(self):
         return f"({self.id} - State Name: {self.name})"
