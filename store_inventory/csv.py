@@ -7,7 +7,10 @@ from store_inventory.models import (
     session,
     ProductsOrder
 )
-from store_inventory.utils.date import clean_date
+from store_inventory.utils.date import (
+    clean_date,
+    generate_date
+)
 from store_inventory.utils.price import clean_price
 
 
@@ -46,7 +49,9 @@ def add_order_status_to_db():
             status_name = status["status_name"]
 
             new_order_status = OrderStatus(
-                name=status_name
+                name=status_name,
+                created_at=generate_date(),
+                updated_at=generate_date()
             )
 
             session.add(new_order_status)
@@ -80,4 +85,4 @@ def add_orders_to_db():
     new_order.products.append(new_product_order)
 
     session.commit()
-    
+

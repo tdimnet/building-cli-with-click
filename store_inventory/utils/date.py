@@ -12,5 +12,5 @@ def clean_date(date_str):
 
 
 def generate_date():
-    pass
+    return datetime.date.today()
 
