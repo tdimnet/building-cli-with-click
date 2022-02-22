@@ -10,3 +10,7 @@ def clean_date(date_str):
 
     return datetime.date(year, month, day)
 
+
+def generate_date():
+    pass
+

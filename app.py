@@ -1,5 +1,4 @@
 import click
-import os
 
 from store_inventory.commands.backup import backup
 from store_inventory.commands.database import database

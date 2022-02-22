@@ -51,26 +51,26 @@ class Order(Base):
     order_status_id = Column(Integer, ForeignKey("order_status.id"))
     order_status = relationship("OrderStatus")
 
-    created_at = Column("created_at", Date)
-    updated_at = Column("updated_at", Date)
+    created_at = Column("created_at", Date, nullable=False)
+    updated_at = Column("updated_at", Date, nullable=False)
 
 
 class ProductsOrder(Base):
     __tablename__ = "products_order"
 
     id = Column("id", Integer, primary_key=True)
-    quantity = Column("quantity", Integer)
-    order_id = Column("order_id", ForeignKey("orders.id"))
-    product_id = Column("product_id", ForeignKey("products.id"))
+    quantity = Column("quantity", Integer, nullable=False)
+    order_id = Column("order_id", ForeignKey("orders.id"), nullable=False)
+    product_id = Column("product_id", ForeignKey("products.id"), nullable=False)
 
 
 class OrderStatus(Base):
     __tablename__ = "order_status"
 
     id = Column(Integer, primary_key=True)
-    name = Column("name", String(255))
-    created_at = Column("created_at", Date)
-    updated_at = Column("updated_at", Date)
+    name = Column("name", String(255), nullable=False)
+    created_at = Column("created_at", Date, nullable=False)
+    updated_at = Column("updated_at", Date, nullable=False)
 
     def __repr__(self):
         return f"({self.id} - State Name: {self.name})"
