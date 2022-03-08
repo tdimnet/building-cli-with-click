@@ -1,30 +1,68 @@
 version: '3'
 services:
-  app:
-    build: .
-    stdin_open: true
-    tty: true
+  datadog-agent:
     environment:
-      FLASK_APP: api.py
-      MARIADB_USER: dev
-      MARIADB_PASSWORD: example
-      MARIADB_DATABASE: inventory_db
+      DD_APM_ENABLED: true
+      DD_ENV: dev
+      DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL: true
+      DD_LOGS_ENABLED: true
+      DD_PROCESS_AGENT_ENABLED: true
+    env_file:
+      - ./.env
+    image: datadog/agent
+    labels:
+      com.datadoghq.ad.logs: '[{ "source": "agent", "service": "agent" }]'
+    ports:
+      - "8126:8126"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+  flask-app:
+    build: .
+    depends_on:
+      - adminer
+      - datadog-agent
+      - db
+    env_file:
+      - ./.env
+    environment:
+      # DB
       DB_ADDRESS: db
+      MARIADB_DATABASE: inventory_db
+      MARIADB_PASSWORD: example
+      MARIADB_USER: dev
+      # Flask
+      FLASK_APP: api.py
+      # DD
+      DD_ENV: dev
+      DD_SERVICE: flask-app
+      DD_AGENT_HOST: agent
+      DD_LOGS_INJECTION: true
+      DD_TRACE_ANALYTICS_ENABLED: true
+      DD_PROFILING_ENABLED: true
+    labels:
+      com.datadoghq.com.logs: '[{ "source": "python", "service": "flask-app" }]'
     ports:
       - "5000:5000"
-    depends_on:
-      - db
-      - adminer
+    stdin_open: true
+    tty: true
     volumes:
       - ./:/app
   db:
     image: mariadb
     environment:
+      # DB
+      DB_ADDRESS: db
       MARIADB_ROOT_PASSWORD: example
       MARIADB_USER: dev
       MARIADB_PASSWORD: example
       MARIADB_DATABASE: inventory_db
-      DB_ADDRESS: db
+      # DD
+      DD_ENV: dev
+    labels:
+      com.datadoghq.com.logs: '[{ "source": "mysql", "service": "mysql" }]'
   adminer:
     image: adminer
     ports:

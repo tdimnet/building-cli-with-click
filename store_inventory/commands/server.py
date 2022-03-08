@@ -7,7 +7,7 @@ import os
         help="Launch a dev or prod server")
 def serve(kind):
     if kind == "dev":
-        os.system("flask run --host=0.0.0.0")
+        os.system("flask run --host=0.0.0.0 --port=5000")
     else:
         print('=====')
         print(kind)
